@@ -12,6 +12,7 @@ app.get("/", (req, res) => {
 
 app.post("/evento-cms", express.raw({ type: "*/*" }), (req, res) => {
     console.log(req.headers);
+    console.log(req.body);
     return res.sendStatus(200);
 });
 
