@@ -6,12 +6,12 @@ const cors = require("cors");
 app.use(cors());
 
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     return res.send("Hola");
 });
 
-app.post("/evento-cms", (req, res) => {
-    console.log(req);
+app.post("/evento-cms", express.raw({ type: "*/*" }), (req, res) => {
+    console.log(req.headers);
     return res.sendStatus(200);
 });
 
