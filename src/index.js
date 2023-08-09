@@ -18,7 +18,10 @@ app.post("/evento-cms", bodyParser.text({type:"*/*"}) , async(req, res) => {
         const resultado = await xml2js.parseStringPromise(req.body);
         const envelope = resultado['soapenv:Envelope'];
         const body = envelope['soapenv:Body'];
-        console.log(body);
+        if(Array.isArray(body) && body.length > 0){
+            const telemetrylist = body[0]['web:storeTelemetryList'];
+            console.log(telemetrylist);
+        }
         
     } catch (error) {
         console.log(error);
