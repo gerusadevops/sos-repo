@@ -10,7 +10,7 @@ app.get("/",(req,res)=>{
 });
 
 app.post("/evento-cms", (req, res) => {
-    console.log(req.body);
+    console.log(req.headers);
     return res.sendStatus(200);
 });
 
