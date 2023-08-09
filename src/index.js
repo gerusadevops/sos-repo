@@ -20,7 +20,8 @@ app.post("/evento-cms", bodyParser.text({type:"*/*"}) , async(req, res) => {
         const body = envelope['soapenv:Body'];
         if(Array.isArray(body) && body.length > 0){
             const telemetrylist = body[0]['web:storeTelemetryList'];
-            console.log(telemetrylist);
+            const telemetryDetails = telemetrylist[0]['telemetryWithDetails'];
+            console.log(telemetryDetails);
         }
         
     } catch (error) {
