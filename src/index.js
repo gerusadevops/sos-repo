@@ -4,11 +4,20 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const xml2js = require("xml2js");
 
+
+const registroDeVehiculos = [];
+
 app.use(cors());
 
 
-app.get("/", (req, res) => {
-    return res.send("Hola");
+app.get("/status", (req, res) => {
+
+    const clientsha = req.query.client_sha;
+
+    if (clientsha == null) return res.sendStatus(400);
+    if (clientsha != '95dff4c2f575b1ad6035bfb47798cac6') return res.sendStatus(401);
+
+    return res.json({ unidades: registroDeVehiculos });
 });
 
 app.post("/evento-cms", bodyParser.text({ type: "*/*" }), async (req, res) => {
@@ -37,6 +46,13 @@ app.post("/evento-cms", bodyParser.text({ type: "*/*" }), async (req, res) => {
                     nuevoRegistroDeVehiculo.ign = Number(detalle.value[0]);
                     break;
                 }
+            }
+
+            if (registroDeVehiculos.includes((el) => el.gpsID === nuevoRegistroDeVehiculo.gpsID)) {
+                registroDeVehiculos = registroDeVehiculos.filter((el) => el.gpsID != nuevoRegistroDeVehiculo.gpsID);
+                registroDeVehiculos.push(nuevoRegistroDeVehiculo);
+            } else {
+                registroDeVehiculos.push(nuevoRegistroDeVehiculo);
             }
             console.log(nuevoRegistroDeVehiculo);
         }
