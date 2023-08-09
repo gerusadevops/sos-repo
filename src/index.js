@@ -16,7 +16,9 @@ app.post("/evento-cms", bodyParser.text({type:"*/*"}) , async(req, res) => {
 
     try {
         const resultado = await xml2js.parseStringPromise(req.body);
-        console.log(resultado);
+        const envelope = resultado['soapenv:Envelope'];
+        const body = envelope['soapenv:Body'];
+        console.log(body);
         
     } catch (error) {
         console.log(error);
