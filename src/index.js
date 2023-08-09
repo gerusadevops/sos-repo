@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const xml2js = require("xml2js");
 
 
-const registroDeVehiculos = [];
+const registroDeVehiculos = {};
 
 app.use(cors());
 
@@ -48,12 +48,7 @@ app.post("/evento-cms", bodyParser.text({ type: "*/*" }), async (req, res) => {
                 }
             }
 
-            if (registroDeVehiculos.includes((el) => el.gpsID === nuevoRegistroDeVehiculo.gpsID)) {
-                registroDeVehiculos = registroDeVehiculos.filter((el) => el.gpsID != nuevoRegistroDeVehiculo.gpsID);
-                registroDeVehiculos.push(nuevoRegistroDeVehiculo);
-            } else {
-                registroDeVehiculos.push(nuevoRegistroDeVehiculo);
-            }
+            registroDeVehiculos[nuevoRegistroDeVehiculo.gpsID] = nuevoRegistroDeVehiculo;
             console.log(nuevoRegistroDeVehiculo);
         }
 
