@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
+
 app.use(cors());
 
 
@@ -10,7 +11,7 @@ app.get("/",(req,res)=>{
 });
 
 app.post("/evento-cms", (req, res) => {
-    console.log(req.headers);
+    console.log(req);
     return res.sendStatus(200);
 });
 
